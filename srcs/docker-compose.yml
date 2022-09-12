@@ -1,15 +1,20 @@
 version: "3.9"  # optional since v1.27.0
-services:
-  web:
-    build: .
-    ports:
-      - "8000:5000"
-    volumes:
-      - .:/code
-      - logvolume01:/var/log
-    depends_on:
-      - redis
-  redis:
-    image: redis
+
+#! ================ Network Part ======================
+network:
+
+#! ================ Memory Part ======================
 volumes:
-  logvolume01: {}
+
+#! ================ Service Proposed ======================
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    ports: "443:443"

@@ -4,6 +4,9 @@ RUN apt-get -y update && apt-get install -y nginx openssl
 
 COPY ./conf/default.conf /etc/nginx/sites-available/default.conf
 
+RUN mkdir -p /etc/ssl/private && \
+	mkdir -p /etc/ssl/certs
+
 #https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
 # x509 permet de cree directement un certificat signer au lieu de generer un certificate signing request
 # -nodes skip the passphrase
@@ -13,7 +16,7 @@ RUN openssl req -x509 -nodes \
 	-newkey rsa:2048 \
 	-keyout /etc/ssl/private/nginx-selfsigned.key \
 	-out /etc/ssl/certs/nginx-selfsigned.crt \
-	-subj "/C=FR/ST=Paris/L=Paris/O=42/OU=42/CN=gmary"
+	-subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=gmary.42.fr/UID=gmary"
 
 #BUG on doit on avoir 9000 ??
 EXPOSE 443

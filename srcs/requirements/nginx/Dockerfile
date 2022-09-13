@@ -1,6 +1,22 @@
 FROM debian:buster
 WORKDIR /.
-#BUG on doit on avoir 9000
+RUN apt-get -y update && apt-get install -y nginx openssl
+
+COPY ./conf/default.conf /etc/nginx/sites-available/default.conf
+
+#https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
+# x509 permet de cree directement un certificat signer au lieu de generer un certificate signing request
+# -nodes skip the passphrase
+# newkey rsa:2048 generate a new key with 2048 bits and a new certificate
+RUN openssl req -x509 -nodes \
+	-days 365 \
+	-newkey rsa:2048 \
+	-keyout /etc/ssl/private/nginx-selfsigned.key \
+	-out /etc/ssl/certs/nginx-selfsigned.crt \
+	-subj "/C=FR/ST=Paris/L=Paris/O=42/OU=42/CN=gmary"
+
+#BUG on doit on avoir 9000 ??
 EXPOSE 443
 
-CMD nginx -g deamon off
+#BUG cela peut marcher sans tableau?
+CMD ["nginx", "-g", "deamon off;"]

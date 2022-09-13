@@ -1,5 +1,5 @@
 FROM debian:buster
-WORKDIR /.
+#WORKDIR /.
 RUN apt-get -y update && apt-get install -y nginx openssl
 
 COPY ./conf/default.conf /etc/nginx/sites-available/default.conf

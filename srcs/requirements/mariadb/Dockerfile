@@ -11,6 +11,12 @@ RUN chown -R mysql:mysql /run/mysqld
 RUN chown -R mysql:mysql /var/lib/mysqld
 RUN chown -R mysql:mysql /var/log/mysqld
 
+# RUN mysqld
+# RUN mysqldadmin -uroot password $MYSQL_ROOT_PASSWORD
+
+# Alternately, you can set MariaDB to start and run until you either reboot or stop it manually:
+# sudo systemctl start mariadb
+
 #need to grant privilege and flush privilege ??
 
 EXPOSE 3306

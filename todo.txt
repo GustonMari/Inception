@@ -3,3 +3,5 @@ https://www.youtube.com/watch?v=mgwo8fq-SkA&ab_channel=yoursTRULY
 tres bien pour mariadb:
 https://www.redhat.com/sysadmin/mysql-mariadb-introduction
 https://www.inmotionhosting.com/support/server/databases/create-a-mysql-database/
+
+push

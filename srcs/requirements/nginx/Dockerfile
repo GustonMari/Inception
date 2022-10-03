@@ -1,9 +1,11 @@
 FROM debian:buster
 #WORKDIR /.
-RUN apt-get -y update && apt-get install -y nginx openssl
+EXPOSE 443
+RUN apt-get -y update && apt-get install -y openssl nginx
 
-COPY ./conf/default.conf /etc/nginx/sites-available/default.conf
-
+COPY ./conf/default.conf /etc/nginx/nginx.conf
+# COPY index.html ./var/www/html/
+# -p it will create parent directory first, if it doesnt exist
 RUN mkdir -p /etc/ssl/private && \
 	mkdir -p /etc/ssl/certs
 
@@ -19,7 +21,6 @@ RUN openssl req -x509 -nodes \
 	-subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=gmary.42.fr/UID=gmary"
 
 #BUG on doit on avoir 9000 ??
-EXPOSE 443
 
 #BUG cela peut marcher sans tableau?
-CMD ["nginx", "-g", "deamon off;"]
+CMD ["nginx", "-g", "daemon off;"]

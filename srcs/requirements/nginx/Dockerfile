@@ -9,6 +9,7 @@ COPY ./conf/default.conf /etc/nginx/nginx.conf
 RUN mkdir -p /etc/ssl/private && \
 	mkdir -p /etc/ssl/certs
 
+RUN chmod 755 /etc/ssl/private && chmod 755 /etc/ssl/certs
 #https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
 # x509 permet de cree directement un certificat signer au lieu de generer un certificate signing request
 # -nodes skip the passphrase

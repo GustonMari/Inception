@@ -2,16 +2,14 @@ FROM debian:buster
 
 RUN apt-get -y update && apt-get -y install mariadb-server mariadb-client
 
-RUN mkdir -p /var/run/mysqld/
-# RUN mkdir -p /var/lib/mysqld
-# RUN mkdir -p /var/log/mysqld
+RUN mkdir -p /var/run/mysqld
 
 #chown PROPRIETAIRE[:groupe] FICHIERSs) surement ajouter un groupe, -R pour recursive
 RUN chmod -R 777 /var/run/mysqld/
-# RUN chmod -R 777 /var/lib/mysqld
-# RUN chmod -R 777 /var/log/mysqld
+
 RUN chmod -R 777 /run/mysqld/
 RUN chmod -R 777 /var/lib/mysql/
+
 
 
 COPY conf/my.cnf /etc/mysql/mariadb.conf.d/50-server.cnf

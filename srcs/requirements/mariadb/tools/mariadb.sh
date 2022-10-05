@@ -13,56 +13,78 @@ MYSQL_USER="gmary"
 MYSQL_USER_PASSWORD="jesuisgmary8080!"
 MYSQL_WP="wordpress_mysql"
 
-
+# MYSQL_DATABASE=wordpress
+# MYSQL_ROOT_USER=root
+# MYSQL_ROOT_PASSWORD=rootpouet
+# MYSQL_USER=ndormoy
+# MYSQL_PASSWORD=poulet
 # [ ] check si une base de donne existe deja 
 
 #launch mysqld in background so we can do multiple commad and create our data base
 mysqld &
 
-# echo "\n\e[31m-------------Starting to create Data Base------------\e[0m\n"
-# while !(mysqladmin ping)
-# do
-#    sleep 3
-#     echo "\n\e[5mWaiting for Mariadb... \e[25m\n"
-# done
-
-RET=1
-while [[ RET -ne 0 ]]; do
-    echo "=> Waiting for confirmation of Mariadb service startup..."
-    sleep 5
-    mysql -uroot -e "status" > /dev/null 2>&1
-    RET=$?
+echo "\n\e[31m-------------Starting to create Data Base------------\e[0m\n"
+while !(mysqladmin ping)
+do
+   sleep 3
+    echo "\n\e[5mWaiting for Mariadb... \e[25m\n"
 done
+# sleep 10
+# RET=1
+# while [[ RET -ne 0 ]]; do
+#     echo "=> Waiting for confirmation of Mariadb service startup..."
+#     sleep 5
+#     mysql -uroot -e "status" > /dev/null 2>&1
+#     RET=$?
+# done
 
 #? permet de lancer mysql en arriere plan
 echo "\n\e[92m---------------CREATE DATA BASE-------------------------\e[0m\n"
 
+# mysql --execute "CREATE DATABASE ${MYSQL_DATABASE};"
+#   mysql --execute "CREATE USER '${MYSQL_ROOT_USER}'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
+#   mysql --execute "GRANT ALL PRIVILEGES ON * . * TO '${MYSQL_ROOT_USER}'@'%';"
+#   mysql --execute "FLUSH PRIVILEGES;"
+#   mysql --execute "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
+#   mysql --execute "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}. * TO '${MYSQL_USER}';"
+#   mysql --execute "FLUSH PRIVILEGES;"
+
+
+
+
+
 mysql -uroot -e "CREATE DATABASE ${MYSQL_WP};"
 #cree un admin et lui donne un password
+mysql -uroot -e "CREATE USER '${MYSQL_ADMIN}'@'localhost'"
 mysql -uroot -e "SET PASSWORD FOR '${MYSQL_ADMIN}'@'localhost' = PASSWORD('${MYSQL_ADMIN_PASSWORD}');"
+# mysql --execute "GRANT ALL PRIVILEGES ON * . * TO '${MYSQL_ADMIN}'@'%';"
+# mysql -uroot -e "FLUSH PRIVILEGES;"
 #assigne root password
 mysql -uroot -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_ROOT_PASSWORD}');"
-#create un user
+# #create un user
 mysql -uroot -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
-#on donne tout les PRIVILEGES
+# #on donne tout les PRIVILEGES 
 mysql -uroot -e "GRANT ALL PRIVILEGES ON ${MYSQL_WP}.* TO ${MYSQL_USER}@'%';"
-#vide la memoire cache pour la ettre a jour avec la ligne ci dessus
+# #vide la memoire cache pour la ettre a jour avec la ligne ci dessus
 mysql -uroot -e "FLUSH PRIVILEGES;"
 
-mysqld
+#permet de kill mysqld car il est lancer avec un PID different de 1 et donc il ne correspond pas au main process
+mysqladmin -uroot -pSomePass shutdown
+# on relance le mysqld cette fois avec un PID 1
+exec mysqld
 
 #? permet de tout print a la fin pour debug
 
-if mysql "${MYSQL_WP}" >/dev/null 2>&1 </dev/null
-then
-{
-    echo "ITTTTTTTTTTTTSSSSSS EXISTTTT"
-}
-else
-{
-    echo "DONTTTT EXIST"
-}
-fi
+# if mysql "${MYSQL_WP}" >/dev/null 2>&1 </dev/null
+# then
+# {
+#     echo "ITTTTTTTTTTTTSSSSSS EXISTTTT"
+# }
+# else
+# {
+#     echo "DONTTTT EXIST"
+# }
+# fi
 
 echo "\n\e[92m------------------ALL DONE---------------------------\e[0m\n"
 
@@ -70,7 +92,7 @@ echo "\e[31mshow all tables:\e[0m"
 mysql -e "SHOW TABLES;"
 echo "\e[31mshow info from ${MYSQL_USER}:\e[0m"
 mysql -e "SHOW COLUMNS FROM ${MYSQL_USER};"
-# mysql -uroot -p${MYSQL_ROOT_PASSWORD}
+mysql -uroot -p${MYSQL_ROOT_PASSWORD}
 
 
 echo "\n\e[92m------------------PRINT DONE---------------------------\e[0m\n"

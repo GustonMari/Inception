@@ -37,7 +37,7 @@ else
     #cree un admin et lui donne un password
     mysql -uroot -e "CREATE USER '${MYSQL_ADMIN}'@'localhost'"
     mysql -uroot -e "SET PASSWORD FOR '${MYSQL_ADMIN}'@'localhost' = PASSWORD('${MYSQL_ADMIN_PASSWORD}');"
-    mysql --execute "GRANT ALL PRIVILEGES ON * . * TO '${MYSQL_ADMIN}'@'%';"
+    mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_ADMIN}'@'%';"
     mysql -uroot -e "FLUSH PRIVILEGES;"
     #assigne root password
     # mysql -uroot -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_ROOT_PASSWORD}');"

@@ -23,7 +23,7 @@ echo "\n\e[92m- 1 -\e[0m\n"
 # ls
 
 #!generate wp-config.php file with info
-# wp config create --allow-root --path="/var/www/html" --dbname=wordpress --dbuser=${MYSQL_USER} --dbpass=${MYSQL_USER_PASSWORD} --dbhost="mariadb" --config-file="/var/www/html/wp-config.php"
+# wp config create --allow-root --path="/var/www/html" --dbname=wordpress --dbuser=${MYSQL_USER} --dbpass=${MYSQL_USER_PASSWORD} --dbhost="mariadb:3306" --config-file="/var/www/html/wp-config.php"
 
 # # wp db create
 echo "\n\e[92m- 2 -\e[0m\n"

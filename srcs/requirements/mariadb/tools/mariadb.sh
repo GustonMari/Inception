@@ -26,25 +26,25 @@ else
     echo "\n\e[31m-------------Starting to create Data Base------------\e[0m\n"
     while !(mysqladmin ping)
     do
-       sleep 3
+       sleep 5
         echo "\n\e[5mWaiting for Mariadb... \e[25m\n"
     done
 
     #? permet de lancer mysql en arriere plan
     echo "\n\e[92m---------------CREATE DATA BASE-------------------------\e[0m\n"
-
     mysql -uroot -e "CREATE DATABASE ${MYSQL_WP};"
     #cree un admin et lui donne un password
-    mysql -uroot -e "CREATE USER '${MYSQL_ADMIN}'@'localhost'"
-    mysql -uroot -e "SET PASSWORD FOR '${MYSQL_ADMIN}'@'localhost' = PASSWORD('${MYSQL_ADMIN_PASSWORD}');"
-    mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_ADMIN}'@'%';"
+    # mysql -uroot -e "CREATE USER '${MYSQL_ADMIN}'@'localhost'"
+    mysql -uroot -e "CREATE USER '${MYSQL_ADMIN}'@'%'"
+    mysql -uroot -e "SET PASSWORD FOR '${MYSQL_ADMIN}'@'%' = PASSWORD('${MYSQL_ADMIN_PASSWORD}');"
+    mysql -uroot -e "GRANT ALL PRIVILEGES ON * . * TO '${MYSQL_ADMIN}'@'%';"
     mysql -uroot -e "FLUSH PRIVILEGES;"
     #assigne root password
     # mysql -uroot -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_ROOT_PASSWORD}');"
     # #create un user
-    mysql -uroot -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
+    mysql -uroot -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_USER_PASSWORD}';"
     # #on donne tout les PRIVILEGES 
-    mysql -uroot -e "GRANT ALL PRIVILEGES ON ${MYSQL_WP}.* TO ${MYSQL_USER}@'%';"
+    mysql -uroot -e "GRANT ALL PRIVILEGES ON ${MYSQL_WP}. * TO '${MYSQL_USER}';"
     # #vide la memoire cache pour la ettre a jour avec la ligne ci dessus
     mysql -uroot -e "FLUSH PRIVILEGES;"
 

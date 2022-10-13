@@ -2,29 +2,59 @@ version: "3.9"  # optional since v1.27.0
 
 #! ================ Network Part ======================
 network:
-
+  inception_network:
+    driver: bridge
+    
+    
 #! ================ Memory Part ======================
 volumes:
-
+  mariadb-volume:
+    name: mariadb-volume
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/gmary/data/
+      o: bind
+  nginx-volume:
+    name: nginx-volume
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/gmary/data/
+      o: bind
 #! ================ Service Proposed ======================
 services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
+    networks:
+      - inception_network
+    ports: "3306:3306"
+    volumes:
+      - mariadb-volume:/var/lib/mysql
     env_file:
       - .env
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
+    networks:
+      - inception_network
+    ports: "9000:9000"
     depends_on:
       - mariadb
+    volumes:
+      - nginx-volume
     env_file:
       - .env
   nginx:
     container_name: nginx
     build: ./requirements/nginx
+    networks:
+      - inception_network
     ports: "443:443"
     depends_on:
       - wordpress
+    volumes:
+      - nginx-volume:/var/lib/mysql
     env_file:
       - .env

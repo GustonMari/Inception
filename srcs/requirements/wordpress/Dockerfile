@@ -19,12 +19,12 @@ COPY ./tools/wordpress.sh /tmp/wordpress.sh
 RUN chmod 777 /tmp/wordpress.sh
 
 #? a tej les variables car elles seront dispo dans le .env
-ENV MYSQL_ROOT_PASSWORD="gmaryrootmode9090!"
-ENV MYSQL_ADMIN="mastermind"
-ENV MYSQL_ADMIN_PASSWORD="jesuis1penseur!"
-ENV MYSQL_USER="gmary"
-ENV MYSQL_USER_PASSWORD="jesuisgmary8080!"
-ENV MYSQL_WP="wordpress_mysql"
+# ENV MYSQL_ROOT_PASSWORD="gmaryrootmode9090!"
+# ENV MYSQL_ADMIN="mastermind"
+# ENV MYSQL_ADMIN_PASSWORD="jesuis1penseur!"
+# ENV MYSQL_USER="gmary"
+# ENV MYSQL_USER_PASSWORD="jesuisgmary8080!"
+# ENV MYSQL_WP="wordpress_mysql"
 
 # WORKDIR /var/www/html/
 

@@ -20,8 +20,10 @@ wp core install --allow-root --path="/var/www/html" --url="gmary.42.fr" --admin_
 echo "\n\e[92m- 3 -\e[0m\n"
 
 # #!add them for wp
-wp theme install --allow-root --activate --path="/var/www/html" https://github.com/RoneoOrg/wp-bootstrap-starter/archive/refs/heads/master.zip 
+# wp theme install --allow-root --activate --path="/var/www/html" https://github.com/RoneoOrg/wp-bootstrap-starter/archive/refs/heads/master.zip 
 echo "\n\e[92m- 4 -\e[0m\n"
+
+wp  user create gmary gmary@piscine.42.fr --path="/var/www/html" --user_pass=${MYSQL_USER_PASSWORD} --allow-root 
 
 # # wp server
 mkdir -p /run/php/php7.3

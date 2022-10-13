@@ -21,6 +21,7 @@ all: server
 	@echo "\\n"
 
 server: $(NAME)
+	mkdir -p /home/gmary/data
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) 

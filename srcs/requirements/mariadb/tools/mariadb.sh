@@ -1,12 +1,7 @@
 #!/bin/sh
 
 #? ATTENTION TEJ TOUTE LES VARIABLES CAR ELLES SERONT CONTENUE DANS LE .ENV
-MYSQL_ROOT_PASSWORD="gmaryrootmode9090!"
-MYSQL_ADMIN="mastermind"
-MYSQL_ADMIN_PASSWORD="jesuis1penseur!"
-MYSQL_USER="gmary"
-MYSQL_USER_PASSWORD="jesuisgmary8080!"
-MYSQL_WP="wordpress_mysql"
+
 
 echo "---------- ${MYSQL_WP}"
 # if mysql "${MYSQL_WP}" >/dev/null 2>&1 </dev/null

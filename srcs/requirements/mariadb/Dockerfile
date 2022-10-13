@@ -21,7 +21,12 @@ RUN chmod 777 /usr/mariadb.sh
 
 # Alternately, you can set MariaDB to start and run until you either reboot or stop it manually:
 # sudo systemctl start mariadb
-
+# ENV MYSQL_ROOT_PASSWORD="gmaryrootmode9090!"
+# ENV MYSQL_ADMIN="mastermind"
+# ENV MYSQL_ADMIN_PASSWORD="jesuis1penseur!"
+# ENV MYSQL_USER="gmary"
+# ENV MYSQL_USER_PASSWORD="jesuisgmary8080!"
+# ENV MYSQL_WP="wordpress_mysql"
 #need to grant privilege and flush privilege ??
 
 EXPOSE 3306

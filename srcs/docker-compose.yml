@@ -7,7 +7,9 @@ network:
     
     
 #! ================ Memory Part ======================
+
 volumes:
+
   mariadb-volume:
     name: mariadb-volume
     driver: local
@@ -15,6 +17,7 @@ volumes:
       type: none
       device: /home/gmary/data/
       o: bind
+
   nginx-volume:
     name: nginx-volume
     driver: local
@@ -22,11 +25,16 @@ volumes:
       type: none
       device: /home/gmary/data/
       o: bind
+
 #! ================ Service Proposed ======================
+
 services:
+  
   mariadb:
-    container_name: mariadb
+    container_name: mariadb_docker
+    image: mariadb
     build: ./requirements/mariadb
+    restart: unless-stop
     networks:
       - inception_network
     ports: "3306:3306"
@@ -34,27 +42,33 @@ services:
       - mariadb-volume:/var/lib/mysql
     env_file:
       - .env
+  
   wordpress:
-    container_name: wordpress
+    container_name: wordpress_docker
+    image: wordpress
     build: ./requirements/wordpress
+    restart: unless-stop
     networks:
       - inception_network
     ports: "9000:9000"
     depends_on:
       - mariadb
     volumes:
-      - nginx-volume
+      - wordpress-volume:var/www/html
     env_file:
       - .env
+  
   nginx:
-    container_name: nginx
+    container_name: nginx_docker
+    image: nginx
     build: ./requirements/nginx
+    restart: unless-stop
     networks:
       - inception_network
     ports: "443:443"
     depends_on:
       - wordpress
     volumes:
-      - nginx-volume:/var/lib/mysql
+      - nginx-volume:/var/www/html
     env_file:
       - .env

@@ -1,8 +1,8 @@
 version: "3.9"  # optional since v1.27.0
 
 #! ================ Network Part ======================
-network:
-  inception_network:
+networks:
+  my-network:
     driver: bridge
     
     
@@ -18,8 +18,8 @@ volumes:
       device: /home/gmary/data/
       o: bind
 
-  nginx-volume:
-    name: nginx-volume
+  wordpress-volume:
+    name: wordpress-volume
     driver: local
     driver_opts:
       type: none
@@ -34,10 +34,11 @@ services:
     container_name: mariadb_docker
     image: mariadb
     build: ./requirements/mariadb
-    restart: unless-stop
+    restart: unless-stopped
     networks:
-      - inception_network
-    ports: "3306:3306"
+      - my-network
+    ports: 
+      - "3306:3306"
     volumes:
       - mariadb-volume:/var/lib/mysql
     env_file:
@@ -47,14 +48,15 @@ services:
     container_name: wordpress_docker
     image: wordpress
     build: ./requirements/wordpress
-    restart: unless-stop
+    restart: unless-stopped
     networks:
-      - inception_network
-    ports: "9000:9000"
+      - my-network
+    ports: 
+      - "9000:9000"
     depends_on:
       - mariadb
     volumes:
-      - wordpress-volume:var/www/html
+      - wordpress-volume:/var/www/html/
     env_file:
       - .env
   
@@ -62,13 +64,12 @@ services:
     container_name: nginx_docker
     image: nginx
     build: ./requirements/nginx
-    restart: unless-stop
+    restart: unless-stopped
     networks:
-      - inception_network
-    ports: "443:443"
+      - my-network
+    ports: 
+      - "443:443"
     depends_on:
       - wordpress
-    volumes:
-      - nginx-volume:/var/www/html
     env_file:
       - .env

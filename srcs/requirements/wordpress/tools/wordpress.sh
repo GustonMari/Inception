@@ -2,7 +2,8 @@
 
 #? need to replace with ping interceptor
 sleep 10
-#install wp core in path
+
+#! install wp core in path
 wp core download --allow-root --locale=fr_FR --path="/var/www/html"
 
 # cd wp

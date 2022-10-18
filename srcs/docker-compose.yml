@@ -34,7 +34,7 @@ services:
     container_name: mariadb_docker
     image: mariadb
     build: ./requirements/mariadb
-    restart: unless-stopped
+    restart: always
     networks:
       - my-network
     ports: 
@@ -48,7 +48,7 @@ services:
     container_name: wordpress_docker
     image: wordpress
     build: ./requirements/wordpress
-    restart: unless-stopped
+    restart: always
     networks:
       - my-network
     ports: 
@@ -64,7 +64,7 @@ services:
     container_name: nginx_docker
     image: nginx
     build: ./requirements/nginx
-    restart: unless-stopped
+    restart: always
     networks:
       - my-network
     ports: 

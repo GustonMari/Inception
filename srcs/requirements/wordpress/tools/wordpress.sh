@@ -1,8 +1,13 @@
 #!/bin/sh
 
 #? need to replace with ping interceptor
-sleep 10
+# sleep 10
 
+while !(mysqladmin -u ${MYSQL_ADMIN} -p${MYSQL_ADMIN_PASSWORD} -h mariadb ping > /dev/null)
+do
+    sleep 5
+    echo "\n\e[5mWordpress for Mariadb... \e[25m\n"
+done
 #! install wp core in path
 wp core download --allow-root --locale=fr_FR --path="/var/www/html"
 

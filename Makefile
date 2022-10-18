@@ -28,9 +28,9 @@ clean:
 	# cd srcs ; sudo docker compose down docker-compose.yml -v --rmi all
 	sudo docker system prune -af
 	sudo docker volume prune
+	@echo "\\n\033[32;1mDeleting OK \033[0m \\n"
 	sudo docker volume rm mariadb-volume wordpress-volume
 	sudo docker rm -f $(sudo docker ps -aq)
-	@echo "\\n\033[32;1mDeleting OK \033[0m \\n"
 
 fclean: clean
 	@echo "\\n\033[38;5;202;1mCLEANING ALL... \033[0m \\n"

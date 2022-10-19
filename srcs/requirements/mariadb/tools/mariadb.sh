@@ -1,8 +1,5 @@
 #!/bin/sh
 
-#? ATTENTION TEJ TOUTE LES VARIABLES CAR ELLES SERONT CONTENUE DANS LE .ENV
-
-
 echo "---------- ${MYSQL_WP}"
 if mysql "${MYSQL_WP}" >/dev/null 2>&1 </dev/null
 then

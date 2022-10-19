@@ -13,7 +13,7 @@ all: $(NAME)
 	@echo "\033[32;1m     \/__/         \/__/         \/__/         \/__/           \/__/ \033[0m"
 	@echo "\\n"
 	sudo mkdir -p /home/gmary/data/
-	sudo docker compose -f ./srcs/docker-compose.yml up -d
+	sudo docker compose -f ./srcs/docker-compose.yml up #-d
 	@echo "\\n\033[32;1mCOMPILATION OK \033[0m \\n"
 
 # $(NAME):
@@ -23,14 +23,15 @@ all: $(NAME)
 
 clean:
 	@echo "\\n\033[38;5;202;1mDeleting Objects... \033[0m \\n"
+	sudo rm -rf /home/gmary/data
 	sudo docker compose -f ./srcs/docker-compose.yml down -v --rmi all || true
 	# cd srcs ; sudo docker compose down --rmi all
 	# cd srcs ; sudo docker compose down docker-compose.yml -v --rmi all
 	sudo docker system prune -af || true
 	sudo docker volume prune || true
 	@echo "\\n\033[32;1mDeleting OK \033[0m \\n"
-	sudo docker volume rm mariadb-volume wordpress-volume || true
-	sudo docker rm -f $(sudo docker ps -aq)
+	# sudo docker volume rm mariadb-volume wordpress-volume || true
+	# sudo docker rm -f $(sudo docker ps -aq)
 
 fclean: clean
 	@echo "\\n\033[38;5;202;1mCLEANING ALL... \033[0m \\n"

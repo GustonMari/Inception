@@ -1,20 +1,16 @@
 #!/bin/sh
 
-#? need to replace with ping interceptor
-# sleep 10
+sleep 20
 
 while !(mysqladmin -u ${MYSQL_ADMIN} -p${MYSQL_ADMIN_PASSWORD} -h mariadb ping > /dev/null)
 do
-    sleep 5
+    sleep 10
     echo "\n\e[5mWordpress for Mariadb... \e[25m\n"
 done
 #! install wp core in path
 wp core download --allow-root --locale=fr_FR --path="/var/www/html"
 
-# cd wp
 echo "\n\e[92m- 1 -\e[0m\n"
-# pwd
-# ls
 #!generate wp-config.php file with info
 wp config create --allow-root --path="/var/www/html" --dbname=${MYSQL_WP} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_USER_PASSWORD} --dbhost="mariadb" --config-file="/var/www/html/wp-config.php"
 

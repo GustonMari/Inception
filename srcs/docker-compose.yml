@@ -37,7 +37,9 @@ services:
     restart: always
     networks:
       - my-network
-    ports: 
+    # ports: 
+    #   - "3306:3306"
+    expose:
       - "3306:3306"
     volumes:
       - mariadb-volume:/var/lib/mysql
@@ -51,7 +53,9 @@ services:
     restart: always
     networks:
       - my-network
-    ports: 
+    # ports: 
+    #   - "9000:9000"
+    expose:
       - "9000:9000"
     depends_on:
       - mariadb

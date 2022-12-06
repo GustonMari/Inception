@@ -37,10 +37,10 @@ services:
     restart: always
     networks:
       - my-network
-    # ports: 
-    #   - "3306:3306"
-    expose:
+    ports: 
       - "3306:3306"
+    # expose:
+    #   - "3306:3306"
     volumes:
       - mariadb-volume:/var/lib/mysql
     env_file:

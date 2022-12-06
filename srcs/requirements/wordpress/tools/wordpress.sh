@@ -1,11 +1,11 @@
 #!/bin/sh
 
-sleep 20
+sleep 30
 
-while (mysqladmin -u ${MYSQL_ADMIN} -p${MYSQL_ADMIN_PASSWORD} -h mariadb ping > /dev/null)
+while [ mysqladmin -u ${MYSQL_ADMIN} -p${MYSQL_ADMIN_PASSWORD} -h mariadb ping > /dev/null ]
 do
-    # sleep 10
-    sleep 1
+    sleep 10
+    # sleep 1
     echo "\n\e[5mWordpress for Mariadb... \e[25m\n"
 done
 #! install wp core in path
